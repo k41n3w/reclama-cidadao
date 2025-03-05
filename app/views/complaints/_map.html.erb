@@ -1,0 +1,12 @@
+<div class="mb-3">
+  <div id="map" style="width: 100%; height: 300px; border: 1px solid #ccc; margin-bottom: 10px;" 
+       data-latitude="<%= @complaint&.latitude || -21.5288 %>" 
+       data-longitude="<%= @complaint&.longitude || -46.6438 %>"
+       data-title="<%= @complaint&.title || 'Nova Reclamação' %>"></div>
+  
+  <input type="hidden" id="complaint_latitude" name="complaint[latitude]">
+  <input type="hidden" id="complaint_longitude" name="complaint[longitude]">
+  <input type="hidden" id="address-input" name="complaint[address]">
+</div>
+
+<!-- O script de inicialização do mapa foi movido para o arquivo map_manager.js -->

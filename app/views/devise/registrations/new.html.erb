@@ -1,0 +1,47 @@
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-header">
+          <h2 class="text-center">Cadastro</h2>
+        </div>
+        <div class="card-body">
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+            <%= render "devise/shared/error_messages", resource: resource %>
+
+            <div class="form-group mb-3">
+              <%= f.label :name, "Nome" %><span class="text-danger">*</span>
+              <%= f.text_field :name, autofocus: true, class: "form-control" %>
+            </div>
+
+            <div class="form-group mb-3">
+              <%= f.label :email, "E-mail" %><span class="text-danger">*</span>
+              <%= f.email_field :email, autocomplete: "email", class: "form-control" %>
+            </div>
+
+            <div class="form-group mb-3">
+              <%= f.label :password, "Senha" %><span class="text-danger">*</span>
+              <% if @minimum_password_length %>
+                <em>(<%= @minimum_password_length %> caracteres no mínimo)</em>
+              <% end %>
+              <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+            </div>
+
+            <div class="form-group mb-3">
+              <%= f.label :password_confirmation, "Confirme a senha" %><span class="text-danger">*</span>
+              <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+            </div>
+
+            <div class="form-group text-center">
+              <%= f.submit "Cadastrar", class: "btn btn-primary" %>
+            </div>
+          <% end %>
+
+          <div class="text-center mt-3">
+            <%= render "devise/shared/links" %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

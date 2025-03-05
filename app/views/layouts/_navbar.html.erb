@@ -1,0 +1,41 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container">
+    <a class="navbar-brand" href="<%= root_path %>">Reclama Cidadão</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link <%= current_page?(root_path) ? 'active' : '' %>" aria-current="page" href="<%= root_path %>">Início</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link <%= current_page?(complaints_path) ? 'active' : '' %>" href="<%= complaints_path %>">Reclamações</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link <%= current_page?(new_complaint_path) ? 'active' : '' %>" href="<%= new_complaint_path %>">Nova Reclamação</a>
+        </li>
+      </ul>
+      
+      <div class="d-flex">
+        <% if user_signed_in? %>
+          <div class="dropdown">
+            <button class="btn btn-outline-light dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+              <%= current_user.email %>
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+              <li><a class="dropdown-item" href="<%= edit_user_registration_path %>">Minha Conta</a></li>
+              <li><hr class="dropdown-divider"></li>
+              <li>
+                <%= button_to "Sair", destroy_user_session_path, method: :delete, class: "dropdown-item" %>
+              </li>
+            </ul>
+          </div>
+        <% else %>
+          <a href="<%= new_user_session_path %>" class="btn btn-outline-light me-2">Entrar</a>
+          <a href="<%= new_user_registration_path %>" class="btn btn-light">Cadastrar</a>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</nav>

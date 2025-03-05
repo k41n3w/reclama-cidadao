@@ -1,0 +1,97 @@
+<div class='row mb-4'>
+  <div class='col-md-8'>
+    <h1><%= @complaint.title %></h1>
+    <div class='d-flex gap-2 mb-3'>
+      <span class='badge bg-<%= @complaint.status == 'open' ? 'danger' : (@complaint.status == 'resolved' ? 'success' : 'warning') %>'>
+        <%= Complaint.statuses[@complaint.status] %>
+      </span>
+      <span class='badge bg-info'><%= Complaint.categories[@complaint.category] %></span>
+    </div>
+  </div>
+  <div class='col-md-4 text-end'>
+    <% if user_signed_in? && (current_user.admin? || current_user == @complaint.user) %>
+      <%= link_to 'Editar', edit_complaint_path(@complaint), class: 'btn btn-outline-primary' %>
+      <%= button_to 'Excluir', @complaint, method: :delete, data: { confirm: 'Tem certeza?' }, class: 'btn btn-outline-danger' %>
+    <% end %>
+    <%= link_to 'Voltar', complaints_path, class: 'btn btn-outline-secondary' %>
+  </div>
+</div>
+
+<div class='row mb-4'>
+  <div class='col-md-8'>
+    <div class='card mb-4'>
+      <div class='card-body'>
+        <h5 class='card-title'>Descrição</h5>
+        <p class='card-text'><%= @complaint.description %></p>
+        <hr>
+        <h5 class='card-title'>Localização</h5>
+        <p class='card-text'><%= @complaint.address %></p>
+        <div id='map' style='height: 300px; border: 1px solid #ccc; margin-bottom: 10px;' data-latitude='<%= @complaint.latitude %>' data-longitude='<%= @complaint.longitude %>' data-title='<%= @complaint.title %>'></div>
+      </div>
+      <div class='card-footer text-muted'>
+        <div class='d-flex justify-content-between'>
+          <span>Registrado por: <%= @complaint.user_display_name %></span>
+          <span>Em: <%= @complaint.created_at.strftime('%d/%m/%Y %H:%M') %></span>
+        </div>
+      </div>
+    </div>
+
+    <div class='card'>
+      <div class='card-header'>
+        <h5 class='mb-0'>Comentários (<%= @complaint.comments.count %>)</h5>
+      </div>
+      <div class='card-body'>
+        <% if user_signed_in? %>
+          <%= form_with(model: [@complaint, @comment], local: true) do |f| %>
+            <div class='mb-3'>
+              <%= f.text_area :content, class: 'form-control', placeholder: 'Adicione um comentário...', rows: 3 %>
+            </div>
+            <%= f.submit 'Comentar', class: 'btn btn-primary' %>
+          <% end %>
+          <hr>
+        <% end %>
+
+        <% if @comments.any? %>
+          <% @comments.each do |comment| %>
+            <div class='card mb-3'>
+              <div class='card-body'>
+                <p class='card-text'><%= comment.content %></p>
+              </div>
+              <div class='card-footer d-flex justify-content-between align-items-center'>
+                <small class='text-muted'>
+                  Por <%= comment.user.name %> - <%= time_ago_in_words(comment.created_at) %> atrás
+                </small>
+                <% if user_signed_in? && (current_user.admin? || current_user == comment.user) %>
+                  <%= button_to 'Excluir', complaint_comment_path(@complaint, comment), method: :delete, class: 'btn btn-sm btn-outline-danger' %>
+                <% end %>
+              </div>
+            </div>
+          <% end %>
+          <%= paginate @comments %>
+        <% else %>
+          <p class='text-muted'>Nenhum comentário ainda.</p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+  <div class='col-md-4'>
+    <div class='card mb-4'>
+      <div class='card-header'>
+        <h5 class='mb-0'>Histórico de Status</h5>
+      </div>
+      <div class='card-body'>
+        <ul class='list-group list-group-flush'>
+          <li class='list-group-item d-flex justify-content-between align-items-center'>
+            <span>Aberta</span>
+            <span class='badge bg-secondary rounded-pill'><%= @complaint.created_at.strftime('%d/%m/%Y %H:%M') %></span>
+          </li>
+          <!-- Aqui seria adicionado o histórico de mudanças de status -->
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Incluir o partial de inicialização do mapa para a página de visualização -->
+<%= render 'map_show' %>

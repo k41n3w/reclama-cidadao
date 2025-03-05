@@ -1,0 +1,90 @@
+<div class='row mb-4'>
+  <div class='col-md-8'>
+    <h1>Reclamações</h1>
+  </div>
+  <div class='col-md-4 text-end'>
+    <% if user_signed_in? %>
+      <%= link_to 'Nova Reclamação', new_complaint_path, class: 'btn btn-primary' %>
+    <% end %>
+  </div>
+</div>
+
+<div class='row mb-4'>
+  <div class='col-md-12'>
+    <%= form_with url: complaints_path, method: :get, class: 'row g-3', local: true do |f| %>
+      <div class='col-md-3'>
+        <%= f.select :category, 
+                    options_for_select(Complaint.categories.map { |k, v| [v, k] }, params[:category]),
+                    { include_blank: 'Todas as Categorias' },
+                    class: 'form-select' %>
+      </div>
+      <div class='col-md-3'>
+        <%= f.select :status, 
+                    options_for_select(Complaint.statuses.map { |k, v| [v, k] }, params[:status]),
+                    { include_blank: 'Todos os Status' },
+                    class: 'form-select' %>
+      </div>
+      <div class='col-md-2'>
+        <%= f.select :anonymous,
+                    options_for_select([['Anônimas', 'true'], ['Não anônimas', 'false']], params[:anonymous]),
+                    { include_blank: 'Todas (anônimas ou não)' },
+                    class: 'form-select' %>
+      </div>
+      <div class='col-md-3'>
+        <%= f.text_field :address, placeholder: 'Endereço', class: 'form-control' %>
+      </div>
+      <div class='col-md-2'>
+        <%= f.submit 'Filtrar', class: 'btn btn-outline-primary w-100' %>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<div class='row'>
+  <% if @complaints.any? %>
+    <% @complaints.each do |complaint| %>
+      <div class='col-md-6 mb-4'>
+        <div class='card'>
+          <div class='card-header d-flex justify-content-between align-items-center'>
+            <span class='badge bg-<%= complaint.status == 'open' ? 'danger' : (complaint.status == 'resolved' ? 'success' : 'warning') %>'>
+              <%= Complaint.statuses[complaint.status] %>
+            </span>
+            <span class='badge bg-info'><%= Complaint.categories[complaint.category] %></span>
+          </div>
+          <div class='card-body'>
+            <h5 class='card-title'><%= link_to complaint.title, complaint %></h5>
+            <p class='card-text'><%= truncate(complaint.description, length: 100) %></p>
+            <p class='card-text'>
+              <small class='text-muted'>
+                <i class='bi bi-geo-alt'></i> <%= complaint.address %>
+              </small>
+            </p>
+          </div>
+          <div class='card-footer text-muted'>
+            <div class='d-flex justify-content-between'>
+              <span>
+                Por: <%= complaint.user_display_name %>
+                <% if complaint.anonymous? %>
+                  <i class="bi bi-incognito" title="Denúncia anônima"></i>
+                <% end %>
+              </span>
+              <span><%= time_ago_in_words(complaint.created_at) %> atrás</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  <% else %>
+    <div class='col-12'>
+      <div class='alert alert-info'>
+        Nenhuma reclamação encontrada.
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<div class='row'>
+  <div class='col-12'>
+    <%= paginate @complaints %>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Olá, <%= @user.name %></h1>
+    <p>
+      Um novo comentário foi adicionado à sua reclamação "<%= @complaint.title %>".
+    </p>
+    <p>
+      <strong>Comentário:</strong> <%= @comment.content %>
+    </p>
+    <p>
+      <strong>Por:</strong> <%= @comment.user.name %>
+    </p>
+    <p>
+      Para visualizar todos os comentários, acesse o link: <%= link_to 'Ver Reclamação', @url %>
+    </p>
+    <p>Atenciosamente,<br>Equipe Reclama Cidadão</p>
+  </body>
+</html>

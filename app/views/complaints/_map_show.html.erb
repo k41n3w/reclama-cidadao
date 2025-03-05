@@ -1,0 +1,51 @@
+<!-- Partial para inicialização do mapa na página de visualização de reclamação -->
+<script>
+  // Função para garantir que o mapa seja inicializado corretamente na página de visualização
+  function ensureMapInitialization() {
+    console.log("[MapShow] Verificando inicialização do mapa na página de visualização...");
+    
+    // Verificar se o elemento do mapa existe
+    const mapElement = document.getElementById('map');
+    if (!mapElement) {
+      console.log("[MapShow] Elemento do mapa não encontrado na página de visualização!");
+      return;
+    }
+    
+    // Verificar se o mapa já está inicializado
+    if (window.complaintMap) {
+      console.log("[MapShow] Mapa já inicializado, atualizando tamanho...");
+      window.complaintMap.invalidateSize();
+      return;
+    }
+    
+    // Inicializar o mapa se ainda não estiver inicializado
+    console.log("[MapShow] Inicializando mapa na página de visualização...");
+    if (typeof MapManager !== 'undefined') {
+      MapManager.initializeComplaintMap();
+    } else {
+      console.error("[MapShow] MapManager não está disponível!");
+    }
+  }
+  
+  // Executar a inicialização do mapa quando o documento estiver pronto
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log("[MapShow] DOMContentLoaded - Verificando mapa na página de visualização...");
+    setTimeout(ensureMapInitialization, 100);
+  });
+  
+  // Executar a inicialização do mapa quando a página for carregada via Turbo
+  document.addEventListener('turbo:load', function() {
+    console.log("[MapShow] turbo:load - Verificando mapa na página de visualização...");
+    setTimeout(ensureMapInitialization, 100);
+  });
+  
+  // Executar a inicialização do mapa quando a página for renderizada via Turbo
+  document.addEventListener('turbo:render', function() {
+    console.log("[MapShow] turbo:render - Verificando mapa na página de visualização...");
+    setTimeout(ensureMapInitialization, 100);
+  });
+  
+  // Executar a inicialização imediata do mapa
+  console.log("[MapShow] Executando inicialização imediata do mapa na página de visualização...");
+  setTimeout(ensureMapInitialization, 0);
+</script>

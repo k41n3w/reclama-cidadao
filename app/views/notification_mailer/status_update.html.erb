@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Olá, <%= @user.name %></h1>
+    <p>
+      O status da sua reclamação "<%= @complaint.title %>" foi atualizado para <strong><%= Complaint.statuses[@complaint.status] %></strong>.
+    </p>
+    <p>
+      Para visualizar sua reclamação, acesse o link: <%= link_to 'Ver Reclamação', @url %>
+    </p>
+    <p>Atenciosamente,<br>Equipe Reclama Cidadão</p>
+  </body>
+</html>

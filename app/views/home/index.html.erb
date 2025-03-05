@@ -1,0 +1,399 @@
+<!-- 1. Hero Section -->
+<section class="hero-section">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6 hero-content">
+        <h1 class="hero-headline">Dê voz ao seu problema. Veja e compartilhe reclamações em sua cidade!</h1>
+        <p class="hero-subheadline">Veja no mapa os principais problemas da sua cidade e ajude a pressionar por soluções.</p>
+        <a href="<%= new_complaint_path %>" class="btn btn-lg hero-cta">Faça sua Reclamação Agora</a>
+      </div>
+      <div class="col-lg-6 d-none d-lg-block">
+        <!-- Imagem ilustrativa ou mapa pequeno aqui -->
+        <img src="https://via.placeholder.com/600x400" alt="Ilustração" class="img-fluid rounded shadow">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 2. Mapa Interativo -->
+<section class="map-section" id="map-section">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-12 text-center">
+        <h2 class="mb-4">Mapa de Reclamações</h2>
+        <p class="lead mb-5">Explore as reclamações registradas em sua região e veja os problemas mais comuns.</p>
+      </div>
+    </div>
+    
+    <div class="row mb-4">
+      <div class="col-12">
+        <div class="map-filters text-center">
+          <button class="btn filter-btn active" data-filter="all">Todas</button>
+          <button class="btn filter-btn" data-filter="infrastructure">Infraestrutura</button>
+          <button class="btn filter-btn" data-filter="lighting">Iluminação</button>
+          <button class="btn filter-btn" data-filter="sanitation">Saneamento</button>
+          <button class="btn filter-btn" data-filter="security">Segurança</button>
+          <button class="btn filter-btn" data-filter="anonymous">Anônimas</button>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-12">
+        <%= render 'home/home_map' %>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 3. Depoimentos -->
+<section class="testimonials-section">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-12 text-center">
+        <h2 class="mb-4">Depoimentos de Usuários</h2>
+        <p class="lead mb-5">Veja como nossa plataforma tem ajudado cidadãos a resolver problemas em suas comunidades.</p>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-12">
+        <div class="swiper testimonial-swiper">
+          <div class="swiper-wrapper">
+            <!-- Depoimento 1 -->
+            <div class="swiper-slide">
+              <div class="testimonial-card">
+                <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Usuário" class="testimonial-avatar">
+                <p class="testimonial-quote">"Denunciei a falta de iluminação na minha rua e, em 15 dias, a prefeitura arrumou. Obrigado pela plataforma!"</p>
+                <div class="testimonial-author">Carlos Silva</div>
+                <div class="testimonial-location">São Paulo, SP</div>
+              </div>
+            </div>
+            
+            <!-- Depoimento 2 -->
+            <div class="swiper-slide">
+              <div class="testimonial-card">
+                <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Usuário" class="testimonial-avatar">
+                <p class="testimonial-quote">"Consegui resolver um problema de vazamento de esgoto que persistia há meses. Finalmente fui ouvida!"</p>
+                <div class="testimonial-author">Ana Oliveira</div>
+                <div class="testimonial-location">Rio de Janeiro, RJ</div>
+              </div>
+            </div>
+            
+            <!-- Depoimento 3 -->
+            <div class="swiper-slide">
+              <div class="testimonial-card">
+                <img src="https://randomuser.me/api/portraits/men/67.jpg" alt="Usuário" class="testimonial-avatar">
+                <p class="testimonial-quote">"Reportei buracos na via principal do meu bairro e em uma semana a prefeitura iniciou os reparos."</p>
+                <div class="testimonial-author">Roberto Almeida</div>
+                <div class="testimonial-location">Belo Horizonte, MG</div>
+              </div>
+            </div>
+            
+            <!-- Depoimento 4 -->
+            <div class="swiper-slide">
+              <div class="testimonial-card">
+                <img src="https://randomuser.me/api/portraits/women/28.jpg" alt="Usuário" class="testimonial-avatar">
+                <p class="testimonial-quote">"Fiz uma denúncia anônima sobre tráfico de drogas na minha região e a polícia aumentou o patrulhamento."</p>
+                <div class="testimonial-author">Usuário Anônimo</div>
+                <div class="testimonial-location">Fortaleza, CE</div>
+              </div>
+            </div>
+            
+            <!-- Depoimento 5 -->
+            <div class="swiper-slide">
+              <div class="testimonial-card">
+                <img src="https://randomuser.me/api/portraits/men/22.jpg" alt="Usuário" class="testimonial-avatar">
+                <p class="testimonial-quote">"A praça do meu bairro estava abandonada. Após a reclamação, a prefeitura fez a manutenção completa!"</p>
+                <div class="testimonial-author">Marcos Santos</div>
+                <div class="testimonial-location">Salvador, BA</div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Paginação do Swiper -->
+          <div class="swiper-pagination"></div>
+          
+          <!-- Botões de navegação -->
+          <div class="swiper-button-next"></div>
+          <div class="swiper-button-prev"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 4. Como Funciona -->
+<section class="how-it-works-section">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-12 text-center">
+        <h2 class="mb-4">Como Funciona?</h2>
+        <p class="lead mb-5">Em apenas 4 passos simples, você pode registrar e acompanhar sua reclamação.</p>
+      </div>
+    </div>
+    
+    <div class="row">
+      <!-- Passo 1 -->
+      <div class="col-md-6 col-lg-3 mb-4">
+        <div class="step-card">
+          <div class="step-number">1</div>
+          <div class="step-icon"><i class="bi bi-pencil-square"></i></div>
+          <h4>Faça sua reclamação</h4>
+          <p>Preencha um formulário simples com os detalhes do problema.</p>
+        </div>
+      </div>
+      
+      <!-- Passo 2 -->
+      <div class="col-md-6 col-lg-3 mb-4">
+        <div class="step-card">
+          <div class="step-number">2</div>
+          <div class="step-icon"><i class="bi bi-geo-alt"></i></div>
+          <h4>Veja no mapa</h4>
+          <p>Sua reclamação aparece automaticamente no mapa da cidade.</p>
+        </div>
+      </div>
+      
+      <!-- Passo 3 -->
+      <div class="col-md-6 col-lg-3 mb-4">
+        <div class="step-card">
+          <div class="step-number">3</div>
+          <div class="step-icon"><i class="bi bi-share"></i></div>
+          <h4>Compartilhe</h4>
+          <p>Mais pessoas podem apoiar sua causa e dar visibilidade.</p>
+        </div>
+      </div>
+      
+      <!-- Passo 4 -->
+      <div class="col-md-6 col-lg-3 mb-4">
+        <div class="step-card">
+          <div class="step-number">4</div>
+          <div class="step-icon"><i class="bi bi-check2-circle"></i></div>
+          <h4>Acompanhe a solução</h4>
+          <p>Autoridades podem responder e resolver o problema.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 5. Benefícios da Plataforma -->
+<section class="benefits-section">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-12 text-center">
+        <h2 class="mb-4">Benefícios da Plataforma</h2>
+        <p class="lead mb-5">Por que nossa plataforma é a melhor opção para suas reclamações urbanas.</p>
+      </div>
+    </div>
+    
+    <div class="row">
+      <!-- Benefício 1 -->
+      <div class="col-md-6 col-lg-3 mb-4">
+        <div class="benefit-card">
+          <div class="benefit-icon"><i class="bi bi-eye"></i></div>
+          <h4>Transparente</h4>
+          <p>Todas as reclamações são públicas e acessíveis para qualquer cidadão</p>
+        </div>
+      </div>
+      
+      <!-- Benefício 2 -->
+      <div class="col-md-6 col-lg-3 mb-4">
+        <div class="benefit-card">
+          <div class="benefit-icon"><i class="bi bi-lightning"></i></div>
+          <h4>Rápido</h4>
+          <p>Sem burocracia, publique sua reclamação em minutos</p>
+        </div>
+      </div>
+      
+      <!-- Benefício 3 -->
+      <div class="col-md-6 col-lg-3 mb-4">
+        <div class="benefit-card">
+          <div class="benefit-icon"><i class="bi bi-graph-up"></i></div>
+          <h4>Eficiente</h4>
+          <p>Quanto mais pessoas denunciam, mais rápido as soluções chegam</p>
+        </div>
+      </div>
+      
+      <!-- Benefício 4 -->
+      <div class="col-md-6 col-lg-3 mb-4">
+        <div class="benefit-card">
+          <div class="benefit-icon"><i class="bi bi-hand-thumbs-up"></i></div>
+          <h4>Fácil de usar</h4>
+          <p>Interface amigável, sem complicação para todos os cidadãos</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 6. Estatísticas -->
+<section class="statistics-section">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-12 text-center">
+        <h2 class="mb-4">Impacto da Plataforma</h2>
+        <p class="lead mb-5">Números que mostram nossa relevância</p>
+      </div>
+    </div>
+    
+    <div class="row">
+      <!-- Estatística 1 -->
+      <div class="col-md-4 mb-4">
+        <div class="stat-card animate-on-scroll">
+          <div id="stat-complaints" class="stat-number" data-target="10000">0</div>
+          <div class="stat-label">Reclamações cadastradas</div>
+        </div>
+      </div>
+      
+      <!-- Estatística 2 -->
+      <div class="col-md-4 mb-4">
+        <div class="stat-card animate-on-scroll">
+          <div id="stat-cities" class="stat-number" data-target="500">0</div>
+          <div class="stat-label">Cidades com denúncias ativas</div>
+        </div>
+      </div>
+      
+      <!-- Estatística 3 -->
+      <div class="col-md-4 mb-4">
+        <div class="stat-card animate-on-scroll">
+          <div id="stat-resolved" class="stat-number" data-target="80">0</div>
+          <div class="stat-label">% das reclamações resolvidas</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 7. Perguntas Frequentes -->
+<section class="faq-section">
+  <div class="container">
+    <div class="row mb-4">
+      <div class="col-12 text-center">
+        <h2 class="mb-4">Perguntas Frequentes</h2>
+        <p class="lead mb-5">Tire suas dúvidas sobre nossa plataforma</p>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <div class="accordion" id="faqAccordion">
+          <!-- Pergunta 1 -->
+          <div class="accordion-item mb-3 shadow-sm">
+            <h2 class="accordion-header">
+              <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                Quem pode fazer uma reclamação?
+              </button>
+            </h2>
+            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Qualquer cidadão pode registrar uma reclamação. Basta criar uma conta gratuita na plataforma com seu e-mail e senha. Você também pode optar por fazer denúncias anônimas para casos sensíveis.
+              </div>
+            </div>
+          </div>
+          
+          <!-- Pergunta 2 -->
+          <div class="accordion-item mb-3 shadow-sm">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                As prefeituras veem essas reclamações?
+              </button>
+            </h2>
+            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Sim! Trabalhamos em parceria com órgãos públicos para garantir que as reclamações cheguem aos responsáveis. Além disso, a visibilidade pública das reclamações gera pressão para que sejam resolvidas.
+              </div>
+            </div>
+          </div>
+          
+          <!-- Pergunta 3 -->
+          <div class="accordion-item mb-3 shadow-sm">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                Como posso acompanhar uma denúncia?
+              </button>
+            </h2>
+            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Após fazer login, você pode acessar todas as suas reclamações na seção "Minhas Reclamações". Lá você verá o status atual de cada uma e poderá adicionar comentários ou informações adicionais.
+              </div>
+            </div>
+          </div>
+          
+          <!-- Pergunta 4 -->
+          <div class="accordion-item mb-3 shadow-sm">
+            <h2 class="accordion-header">
+              <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                É gratuito?
+              </button>
+            </h2>
+            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+              <div class="accordion-body">
+                Sim, o serviço é totalmente gratuito para cidadãos. Nosso objetivo é facilitar a comunicação entre a população e os órgãos públicos para melhorar a qualidade de vida nas cidades.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- 8. Rodapé -->
+<section class="footer-section">
+  <div class="container">
+    <div class="row">
+      <!-- Coluna 1 -->
+      <div class="col-md-4 mb-4">
+        <h4 class="footer-heading">Reclama Cidadão</h4>
+        <p>Plataforma para denúncias e reclamações urbanas que conecta cidadãos e órgãos públicos para resolver problemas nas cidades brasileiras.</p>
+        <div class="mt-3">
+          <a href="#" class="social-icon"><i class="bi bi-facebook"></i></a>
+          <a href="#" class="social-icon"><i class="bi bi-twitter"></i></a>
+          <a href="#" class="social-icon"><i class="bi bi-instagram"></i></a>
+          <a href="#" class="social-icon"><i class="bi bi-whatsapp"></i></a>
+        </div>
+      </div>
+      
+      <!-- Coluna 2 -->
+      <div class="col-md-2 mb-4">
+        <h4 class="footer-heading">Links Úteis</h4>
+        <a href="#" class="footer-link">Sobre Nós</a>
+        <a href="#" class="footer-link">Como Funciona</a>
+        <a href="#" class="footer-link">Estatísticas</a>
+        <a href="#" class="footer-link">Blog</a>
+      </div>
+      
+      <!-- Coluna 3 -->
+      <div class="col-md-2 mb-4">
+        <h4 class="footer-heading">Suporte</h4>
+        <a href="#" class="footer-link">Ajuda</a>
+        <a href="#" class="footer-link">Contato</a>
+        <a href="#" class="footer-link">FAQ</a>
+        <a href="#" class="footer-link">Termos de Uso</a>
+      </div>
+      
+      <!-- Coluna 4 -->
+      <div class="col-md-4 mb-4">
+        <h4 class="footer-heading">Cadastre-se</h4>
+        <p>Receba atualizações sobre melhorias na sua cidade:</p>
+        <div class="input-group mb-3">
+          <input type="email" class="form-control" placeholder="Seu e-mail" aria-label="Seu e-mail">
+          <button class="btn btn-primary" type="button">Inscrever</button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Rodapé inferior -->
+    <div class="row footer-bottom">
+      <div class="col-md-6 text-center text-md-start">
+        <p>&copy; 2025 Reclama Cidadão. Todos os direitos reservados.</p>
+      </div>
+      <div class="col-md-6 text-center text-md-end">
+        <a href="#" class="footer-link d-inline-block mx-2">Privacidade</a>
+        <a href="#" class="footer-link d-inline-block mx-2">Termos</a>
+        <a href="#" class="footer-link d-inline-block mx-2">Cookies</a>
+      </div>
+    </div>
+  </div>
+</section>

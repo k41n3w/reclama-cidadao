@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sistema de Reclamações Urbanas</title>
+    <meta name='viewport' content='width=device-width,initial-scale=1'>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_importmap_tags %>
+    <link href='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css' rel='stylesheet'>
+    
+    <!-- Leaflet CSS and JS -->
+    <link rel='stylesheet' href='https://unpkg.com/leaflet@1.7.1/dist/leaflet.css' />
+    <script src='https://unpkg.com/leaflet@1.7.1/dist/leaflet.js'></script>
+    
+    <!-- Swiper CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@10/swiper-bundle.min.css" />
+    
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@400;600;700&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    
+    <!-- CountUp.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/countup.js/2.0.8/countUp.umd.min.js"></script>
+  </head>
+
+  <body>
+    <nav class='navbar navbar-expand-lg navbar-dark bg-dark mb-4'>
+      <div class='container'>
+        <%= link_to 'Reclama Cidadão', root_path, class: 'navbar-brand' %>
+        <button class='navbar-toggler' type='button' data-bs-toggle='collapse' data-bs-target='#navbarNav'>
+          <span class='navbar-toggler-icon'></span>
+        </button>
+        <div class='collapse navbar-collapse' id='navbarNav'>
+          <ul class='navbar-nav me-auto'>
+            <li class='nav-item'>
+              <%= link_to 'Início', root_path, class: 'nav-link' %>
+            </li>
+            <li class='nav-item'>
+              <%= link_to 'Reclamações', complaints_path, class: 'nav-link' %>
+            </li>
+          </ul>
+          <ul class='navbar-nav'>
+            <% if user_signed_in? %>
+              <li class='nav-item dropdown'>
+                <a class='nav-link dropdown-toggle' href='#' id='navbarDropdown' role='button' data-bs-toggle='dropdown'>
+                  <%= current_user.name %>
+                </a>
+                <ul class='dropdown-menu dropdown-menu-end'>
+                  <li><%= link_to 'Minhas Reclamações', complaints_path(user_id: current_user.id), class: 'dropdown-item' %></li>
+                  <li><%= link_to 'Editar Perfil', edit_user_registration_path, class: 'dropdown-item' %></li>
+                  <li><hr class='dropdown-divider'></li>
+                  <li><%= button_to 'Sair', destroy_user_session_path, method: :delete, class: 'dropdown-item' %></li>
+                </ul>
+              </li>
+            <% else %>
+              <li class='nav-item'>
+                <%= link_to 'Entrar', new_user_session_path, class: 'nav-link' %>
+              </li>
+              <li class='nav-item'>
+                <%= link_to 'Cadastrar', new_user_registration_path, class: 'nav-link' %>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <div class='container'>
+      <% if notice %>
+        <div class='alert alert-success'><%= notice %></div>
+      <% end %>
+      <% if alert %>
+        <div class='alert alert-danger'><%= alert %></div>
+      <% end %>
+
+      <%= yield %>
+<%= render "complaints/map_fix" if controller_name == "complaints" && (action_name == "new" || action_name == "create" || action_name == "edit" || action_name == "update") %>
+    </div>
+
+    <footer class='footer mt-5 py-3 bg-light'>
+      <div class='container text-center'>
+        <span class='text-muted'>Sistema de Reclamações Urbanas &copy; <%= Time.current.year %></span>
+      </div>
+    </footer>
+
+    <script src='https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js'></script>
+  </body>
+</html>

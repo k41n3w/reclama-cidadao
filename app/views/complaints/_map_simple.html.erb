@@ -1,0 +1,77 @@
+<div id="map" style="width: 100%; height: 300px; border: 1px solid #ccc; margin-bottom: 10px;"></div>
+
+<script>
+  // Coordenadas de Caconde
+  const CACONDE_LAT = -21.5288;
+  const CACONDE_LNG = -46.6438;
+  
+  // Função para inicializar o mapa
+  function initializeMap() {
+    // Verificar se o Leaflet está disponível
+    if (typeof L === 'undefined') {
+      console.error("Leaflet não está disponível!");
+      return;
+    }
+    
+    // Verificar se o elemento do mapa existe
+    const mapElement = document.getElementById('map');
+    if (!mapElement) {
+      console.error("Elemento do mapa não encontrado!");
+      return;
+    }
+    
+    // Inicializar o mapa com as coordenadas de Caconde
+    const map = L.map('map').setView([CACONDE_LAT, CACONDE_LNG], 13);
+    
+    // Adicionar camada de tiles
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+    
+    // Adicionar marcador inicial
+    const marker = L.marker([CACONDE_LAT, CACONDE_LNG], {
+      draggable: true
+    }).addTo(map);
+    
+    // Atualizar coordenadas quando o marcador for movido
+    marker.on('dragend', function(e) {
+      const latlng = marker.getLatLng();
+      document.getElementById('complaint_latitude').value = latlng.lat;
+      document.getElementById('complaint_longitude').value = latlng.lng;
+      
+      // Buscar endereço a partir das coordenadas (geocodificação reversa)
+      fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latlng.lat}&lon=${latlng.lng}`)
+        .then(response => response.json())
+        .then(data => {
+          if (data.display_name) {
+            document.getElementById('address-input').value = data.display_name;
+          }
+        })
+        .catch(error => console.error('Erro ao buscar endereço:', error));
+    });
+    
+    // Definir coordenadas iniciais nos campos ocultos
+    document.getElementById('complaint_latitude').value = CACONDE_LAT;
+    document.getElementById('complaint_longitude').value = CACONDE_LNG;
+    
+    // Forçar a renderização do mapa
+    setTimeout(() => {
+      map.invalidateSize();
+    }, 100);
+  }
+  
+  // Inicializar o mapa quando o documento estiver pronto
+  document.addEventListener('DOMContentLoaded', initializeMap);
+  
+  // Inicializar o mapa quando a página for carregada via Turbo
+  document.addEventListener('turbo:load', initializeMap);
+  
+  // Inicializar o mapa quando a página for renderizada via Turbo
+  document.addEventListener('turbo:render', initializeMap);
+  
+  // Inicializar o mapa imediatamente
+  initializeMap();
+  
+  // Inicializar o mapa após um curto período (fallback)
+  setTimeout(initializeMap, 500);
+</script>

@@ -1,0 +1,94 @@
+<script>
+  const CACONDE_LAT = -21.5288;
+  const CACONDE_LNG = -46.6438;
+  
+  // Função para inicializar o mapa
+  function initializeComplaintMap() {
+    console.log("Inicializando mapa de reclamações...");
+    
+    // Verificar se o elemento do mapa existe
+    const mapElement = document.getElementById('map');
+    if (!mapElement) {
+      console.error("Elemento do mapa não encontrado!");
+      return;
+    }
+    
+    // Verificar se o Leaflet está disponível
+    if (typeof L === 'undefined') {
+      console.error("Leaflet não está disponível!");
+      return;
+    }
+    
+    try {
+      console.log("Criando mapa com coordenadas de Caconde:", CACONDE_LAT, CACONDE_LNG);
+      
+      // Inicializar o mapa com as coordenadas de Caconde
+      window.complaintMap = L.map('map').setView([CACONDE_LAT, CACONDE_LNG], 13);
+      
+      // Adicionar camada de tiles
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+      }).addTo(window.complaintMap);
+      
+      // Adicionar marcador inicial
+      window.complaintMarker = L.marker([CACONDE_LAT, CACONDE_LNG], {
+        draggable: true
+      }).addTo(window.complaintMap);
+      
+      // Atualizar coordenadas quando o marcador for movido
+      window.complaintMarker.on('dragend', function(e) {
+        const latlng = window.complaintMarker.getLatLng();
+        
+        // Atualizar campos ocultos
+        document.getElementById('complaint_latitude').value = latlng.lat;
+        document.getElementById('complaint_longitude').value = latlng.lng;
+        
+        // Buscar endereço a partir das coordenadas (geocodificação reversa)
+        fetch(`https://nominatim.openstreetmap.org/reverse?format=json&lat=${latlng.lat}&lon=${latlng.lng}`)
+          .then(response => response.json())
+          .then(data => {
+            if (data.display_name) {
+              document.getElementById('address-input').value = data.display_name;
+            }
+          })
+          .catch(error => console.error('Erro ao buscar endereço:', error));
+      });
+      
+      // Definir coordenadas iniciais nos campos ocultos
+      document.getElementById('complaint_latitude').value = CACONDE_LAT;
+      document.getElementById('complaint_longitude').value = CACONDE_LNG;
+      
+      // Forçar a renderização do mapa
+      setTimeout(() => {
+        window.complaintMap.invalidateSize();
+        console.log("Mapa inicializado com sucesso!");
+      }, 100);
+      
+      console.log("Mapa inicializado com sucesso!");
+    } catch (error) {
+      console.error("Erro ao inicializar o mapa:", error);
+    }
+  }
+  
+  // Inicializar o mapa quando o documento estiver pronto
+  document.addEventListener('DOMContentLoaded', function() {
+    console.log("DOMContentLoaded - Inicializando mapa...");
+    setTimeout(initializeComplaintMap, 100);
+  });
+  
+  // Inicializar o mapa quando a página for carregada via Turbo
+  document.addEventListener('turbo:load', function() {
+    console.log("turbo:load - Inicializando mapa...");
+    setTimeout(initializeComplaintMap, 100);
+  });
+  
+  // Inicializar o mapa quando a página for renderizada via Turbo
+  document.addEventListener('turbo:render', function() {
+    console.log("turbo:render - Inicializando mapa...");
+    setTimeout(initializeComplaintMap, 100);
+  });
+  
+  // Inicializar o mapa imediatamente
+  console.log("Executando inicialização imediata do mapa...");
+  setTimeout(initializeComplaintMap, 100);
+</script>
