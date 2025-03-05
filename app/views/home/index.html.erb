@@ -9,7 +9,7 @@
       </div>
       <div class="col-lg-6 d-none d-lg-block">
         <!-- Imagem ilustrativa ou mapa pequeno aqui -->
-        <img src="https://via.placeholder.com/600x400" alt="Ilustração" class="img-fluid rounded shadow">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTeUIZe0gx-Vn3ryXXKKisByhKfeydcXfeyYg&s" alt="Ilustração" class="img-fluid rounded shadow">
       </div>
     </div>
   </div>
@@ -17,27 +17,7 @@
 
 <!-- 2. Mapa Interativo -->
 <section class="map-section" id="map-section">
-  <div class="container">
-    <div class="row mb-4">
-      <div class="col-12 text-center">
-        <h2 class="mb-4">Mapa de Reclamações</h2>
-        <p class="lead mb-5">Explore as reclamações registradas em sua região e veja os problemas mais comuns.</p>
-      </div>
-    </div>
-    
-    <div class="row mb-4">
-      <div class="col-12">
-        <div class="map-filters text-center">
-          <button class="btn filter-btn active" data-filter="all">Todas</button>
-          <button class="btn filter-btn" data-filter="infrastructure">Infraestrutura</button>
-          <button class="btn filter-btn" data-filter="lighting">Iluminação</button>
-          <button class="btn filter-btn" data-filter="sanitation">Saneamento</button>
-          <button class="btn filter-btn" data-filter="security">Segurança</button>
-          <button class="btn filter-btn" data-filter="anonymous">Anônimas</button>
-        </div>
-      </div>
-    </div>
-    
+  <div class="container">  
     <div class="row">
       <div class="col-12">
         <%= render 'home/home_map' %>
