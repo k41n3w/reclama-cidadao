@@ -16,6 +16,4 @@ test:
 
 production:
   <<: *default
-  database: reclama_cidadao_production
-  username: reclama_cidadao
-  password: <%= ENV["RECLAMA_CIDADAO_DATABASE_PASSWORD"] %>
+  url: <%= ENV['DATABASE_URL'] %>
