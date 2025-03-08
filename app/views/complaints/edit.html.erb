@@ -24,7 +24,7 @@
                           input_html: { class: 'form-select' } %>
             <% end %>
             
-            <%= f.input :address, label: 'Endereço', input_html: { class: 'form-control', id: 'address-input' } %>
+            <%= f.input :address, as: :hidden, input_html: { class: 'form-control', id: 'address-input' } %>
             <%= f.input :latitude, as: :hidden, input_html: { id: 'complaint_latitude' } %>
             <%= f.input :longitude, as: :hidden, input_html: { id: 'complaint_longitude' } %>
             
